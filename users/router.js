@@ -26,8 +26,8 @@ router.post("/users", async (req, res, next) => {
 
         const newUser = await Users.add({
             username,
-            // hash password with a time complexity of 12
-            password: await bcrypt.hash(password, 12)
+            // hash password with a time complexity of 10
+            password: await bcrypt.hash(password, 10)
         })
         
         res.status(201).json(newUser)
@@ -57,6 +57,20 @@ router.post("/login", async (req, res, next) => {
         })
     } catch (err) {
         next(err)
+    }
+})
+
+router.get("/logout", async (req, res, next) => {
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                next(err)
+            } else {
+                res.status(204).end()
+            }
+        })
+    } catch (err) {
+        next(err);
     }
 })
 
