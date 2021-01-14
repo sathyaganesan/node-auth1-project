@@ -27,7 +27,7 @@ function restrict() {
             //     return res.status(401).json(authError)
             // }
 
-            if (!req.session || !req.session.uer) {
+            if (!req.session || !req.session.user) {
                 return res.status(401).json(authError)
             }
 
